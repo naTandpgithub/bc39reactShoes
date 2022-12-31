@@ -11,6 +11,7 @@ export default class Shoes extends Component {
       detail: data[0],
       gioHang: [
         {
+          id: 1,
           name: "Adidas Prophere Black White",
           price: 450,
           image:
@@ -28,7 +29,46 @@ export default class Shoes extends Component {
 
   //Thêm sản phẩm
   addItem = (shoes) => {
-    
+    shoes = { ...shoes, soLuong: 1 };
+    // kiểm tra sản phẩm có hay chưa
+    let checkShoes = this.state.gioHang.find((sp) => sp.id === shoes.id);
+    console.log(checkShoes);
+    if (checkShoes) {
+      checkShoes.soLuong += 1;
+    } else {
+      this.state.gioHang.push(shoes);
+    }
+
+    console.log(shoes);
+    this.setState({
+      gioHang: this.state.gioHang,
+    });
+  };
+
+  deleteItem = (item) => {
+    console.log(item);
+    this.state.gioHang = this.state.gioHang.filter((p) => p.id !== item);
+    this.setState({
+      gioHang: this.state.gioHang,
+    });
+  };
+
+  tangGiamItem = (idItem, soLuong) => {
+    console.log(idItem, soLuong);
+    let sp = this.state.gioHang.find((spGH) => spGH.id === idItem);
+    if (sp) {
+      sp.soLuong += soLuong;
+      if (sp.soLuong < 1) {
+        if (window.confirm("bạn có muốn xóa sản phẩm không")) {
+          this.deleteItem(idItem);
+        } else {
+          sp.soLuong = 1;
+        }
+      }
+    }
+    this.setState({
+      gioHang: this.state.gioHang,
+    });
   };
 
   renderShoes = () => {
@@ -54,7 +94,11 @@ export default class Shoes extends Component {
           <div className="row">
             <div className="col-4">
               <h3>Detail Shoes</h3> <Detail detail={this.state.detail} />
-              <Cart gioHang={this.state.gioHang} number={1} />
+              <Cart
+                gioHang={this.state.gioHang}
+                deleteItem={this.deleteItem}
+                tangGiam={this.tangGiamItem}
+              />
             </div>
             <div className="col-8">
               {" "}

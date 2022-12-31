@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class Cart extends Component {
   render() {
-    const { gioHang } = this.props;
+    const { gioHang, deleteItem, tangGiam } = this.props;
     console.log(this.props);
 
     return (
@@ -51,23 +51,48 @@ export default class Cart extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <img src={gioHang[0].image} alt="" width={50} />
-                      </td>
-                      <td>{gioHang[0].name}</td>
-                      <td>{gioHang[0].price}$</td>
-                      <td>
-                        <button className="btn btn-primary mx-2 ">+</button>
-                        {gioHang[0].soLuong}
-                        <button className="btn btn-primary mx-2">-</button>
-                      </td>
-                      <td>{gioHang[0].price * gioHang[0].soLuong}$ </td>
-                      <td>
-                        <button className="btn btn-danger">Xóa</button>
-                      </td>
-                    </tr>
+                    {gioHang.map((gioHang) => {
+                      return (
+                        <tr key={gioHang.id}>
+                          <td>{gioHang.length}</td>
+                          <td>
+                            <img src={gioHang.image} alt="" width={50} />
+                          </td>
+                          <td>{gioHang.name}</td>
+                          <td>{gioHang.price}$</td>
+                          <td>
+                            <button
+                              className="btn btn-primary mx-2 "
+                              onClick={() => {
+                                tangGiam(gioHang.id, 1);
+                              }}
+                            >
+                              +
+                            </button>
+                            {gioHang.soLuong}
+                            <button
+                              className="btn btn-primary mx-2"
+                              onClick={() => {
+                                tangGiam(gioHang.id, -1);
+                              }}
+                            >
+                              -
+                            </button>
+                          </td>
+                          <td>{gioHang.price * gioHang.soLuong}$ </td>
+                          <td>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => {
+                                deleteItem(gioHang.id);
+                              }}
+                            >
+                              Xóa
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
