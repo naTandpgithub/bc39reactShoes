@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class Cart extends Component {
   render() {
     const { gioHang, deleteItem, tangGiam } = this.props;
-    console.log(this.props);
+    console.log(gioHang.length);
 
     return (
       <div>
@@ -51,10 +51,10 @@ export default class Cart extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {gioHang.map((gioHang) => {
+                    {gioHang.map((gioHang, index) => {
                       return (
                         <tr key={gioHang.id}>
-                          <td>{gioHang.length}</td>
+                          <td>{index + 1}</td>
                           <td>
                             <img src={gioHang.image} alt="" width={50} />
                           </td>

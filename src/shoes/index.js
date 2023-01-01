@@ -9,16 +9,7 @@ export default class Shoes extends Component {
     this.state = {
       listItem: data,
       detail: data[0],
-      gioHang: [
-        {
-          id: 1,
-          name: "Adidas Prophere Black White",
-          price: 450,
-          image:
-            "http://svcy3.myclass.vn/images/adidas-prophere-black-white.png",
-          soLuong: 1,
-        },
-      ],
+      gioHang: [],
     };
   }
   handleItem = (shoes) => {
